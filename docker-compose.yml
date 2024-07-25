@@ -1,0 +1,22 @@
+services:
+  redpanda-console:
+    image: docker.redpanda.com/redpandadata/console:latest
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_BROKERS: "b-1.kafkaclustercomfama.wavl91.c18.kafka.us-east-1.amazonaws.com:9096,b-2.kafkaclustercomfama.wavl91.c18.kafka.us-east-1.amazonaws.com:9096,b-3.kafkaclustercomfama.wavl91.c18.kafka.us-east-1.amazonaws.com:9096"
+      KAFKA_TLS_ENABLED: "true"
+      KAFKA_SASL_ENABLED: "true"
+      KAFKA_SASL_MECHANISM: "SCRAM-SHA-512"
+      KAFKA_SASL_USERNAME: "adminuserkafka"
+      KAFKA_SASL_PASSWORD: "admin_kafka_comfama*"
+    networks:
+      custom_net:
+        ipv4_address: 172.28.0.2
+
+networks:
+  custom_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
