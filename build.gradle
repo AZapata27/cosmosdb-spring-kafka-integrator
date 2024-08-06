@@ -32,6 +32,8 @@ dependencies {
 	// https://mvnrepository.com/artifact/io.github.resilience4j/resilience4j-spring-boot3
 	implementation group: 'io.github.resilience4j', name: 'resilience4j-spring-boot3', version: '2.2.0'
 
+	implementation 'org.xerial.snappy:snappy-java:1.1.10.4'
+
 	compileOnly 'org.projectlombok:lombok:1.18.32'
 	annotationProcessor 'org.projectlombok:lombok:1.18.32'
 	testCompileOnly 'org.projectlombok:lombok:1.18.32'
@@ -43,4 +45,8 @@ test {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+bootJar {
+	archiveBaseName = 'mapeoCosmosdb'
 }

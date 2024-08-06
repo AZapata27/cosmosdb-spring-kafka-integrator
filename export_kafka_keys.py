@@ -8,13 +8,13 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Configuración del consumidor de Kafka
 conf = {
-    'bootstrap.servers': os.getenv('KAFKA_BOOTSTRAP_SERVERS'),
-    'group.id': os.getenv('KAFKA_GROUP_ID'),
-    'auto.offset.reset': os.getenv('KAFKA_AUTO_OFFSET_RESET', 'earliest'),
-    'security.protocol': os.getenv('KAFKA_SECURITY_PROTOCOL', 'SASL_SSL'),
-    'sasl.mechanisms': os.getenv('KAFKA_SASL_MECHANISMS', 'SCRAM-SHA-512'),
-    'sasl.username': os.getenv('KAFKA_SASL_USERNAME'),
-    'sasl.password': os.getenv('KAFKA_SASL_PASSWORD')
+    'bootstrap.servers': 'b-1.kafkaclustercomfama.2zlekm.c2.kafka.us-east-1.amazonaws.com:9096,b-2.kafkaclustercomfama.2zlekm.c2.kafka.us-east-1.amazonaws.com:9096,b-3.kafkaclustercomfama.2zlekm.c2.kafka.us-east-1.amazonaws.com:9096',
+    'group.id': 'export-keys',
+    'auto.offset.reset': 'earliest',
+    'security.protocol': 'SASL_SSL',
+    'sasl.mechanisms': 'SCRAM-SHA-512',
+    'sasl.username': 'connectionuserkafka',
+    'sasl.password': 'Produccion'
 }
 
 # Crear el consumidor
@@ -22,7 +22,7 @@ consumer = Consumer(conf)
 logging.info('Consumidor de Kafka creado.')
 
 # Suscribirse al tópico
-topic = 'ZSUB_LEGALREP_DT'  # Reemplaza 'your_topic' por el nombre de tu tópico
+topic = 'ZSUB_TITULATE_DT_DeadLetter'  # Reemplaza 'your_topic' por el nombre de tu tópico
 consumer.subscribe([topic])
 logging.info(f'Suscrito al tópico: {topic}')
 
@@ -73,7 +73,7 @@ except IOError as e:
 
 # Exportar las claves a un archivo CSV
 try:
-    df.to_csv('kafka_keys.csv', index=False)
-    logging.info('Las claves se han exportado a kafka_keys.csv.')
+    df.to_csv('ZSUB_TITULATE_DT_DeadLetter_KEYS.csv', index=False)
+    logging.info('Las claves se han exportado a ZSUB_TITULATE_DT_DeadLetter_KEYS.csv.')
 except Exception as e:
     logging.error(f'Error al exportar a CSV: {e}')

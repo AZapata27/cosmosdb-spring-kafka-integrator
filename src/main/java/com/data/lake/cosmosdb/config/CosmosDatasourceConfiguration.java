@@ -30,8 +30,7 @@ public class CosmosDatasourceConfiguration {
                 .endpoint(cosmosEndpointDB)
                 .key(cosmosKeyDB)
                 .directMode()
-                .consistencyLevel(ConsistencyLevel.EVENTUAL)
-                .contentResponseOnWriteEnabled(false)
+                .consistencyLevel(ConsistencyLevel.SESSION)
                 .buildClient();
     }
 
