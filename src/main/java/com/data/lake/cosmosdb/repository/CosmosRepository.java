@@ -41,11 +41,8 @@ public class CosmosRepository {
 
             CosmosItemResponse<JsonNode> response = cosmosContainer.upsertItem(jsonToSave, new PartitionKey(key), new CosmosItemRequestOptions());
 
-            if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-                // Registro exitoso
-            } else {
-                // Manejo de otros códigos de estado
-                handleProcessingException(message,key,response,topicFrom);
+            if (response.getStatusCode() < 200 || response.getStatusCode() >= 300) {
+                this.handleProcessingException(message, key, response, topicFrom);
             }
 
         } catch (CosmosException e) {
