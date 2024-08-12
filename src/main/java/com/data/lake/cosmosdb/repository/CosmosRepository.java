@@ -2,7 +2,9 @@ package com.data.lake.cosmosdb.repository;
 
 import com.azure.cosmos.CosmosContainer;
 import com.azure.cosmos.CosmosException;
+import com.azure.cosmos.models.CosmosItemRequestOptions;
 import com.azure.cosmos.models.CosmosItemResponse;
+import com.azure.cosmos.models.PartitionKey;
 import com.data.lake.cosmosdb.config.TopicsConfig;
 import com.data.lake.cosmosdb.exception.CosmosBussinesException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -37,7 +39,7 @@ public class CosmosRepository {
 
             JsonNode jsonToSave = prepareJsonForSave(message, key);
 
-            CosmosItemResponse<JsonNode> response = cosmosContainer.upsertItem(jsonToSave);
+            CosmosItemResponse<JsonNode> response = cosmosContainer.upsertItem(jsonToSave, new PartitionKey(key), new CosmosItemRequestOptions());
 
             if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
                 // Registro exitoso
