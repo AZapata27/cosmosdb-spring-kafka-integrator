@@ -45,10 +45,10 @@ public class CosmosRepository {
                 this.handleProcessingException(message, key, response, topicFrom);
             }
 
-        } catch (CosmosException e) {
-            handleCosmosException(e);
         } catch (JsonProcessingException e) {
             handleJsonProcessingException(message,key,e,topicFrom);
+        } catch (CosmosException e) {
+            handleCosmosException(e);
         }
     }
 
