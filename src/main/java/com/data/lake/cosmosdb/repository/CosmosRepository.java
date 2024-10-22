@@ -46,8 +46,10 @@ public class CosmosRepository {
             }
 
         } catch (JsonProcessingException e) {
+            log.error("Error parsing json format: ", e);
             handleJsonProcessingException(message,key,e,topicFrom);
         } catch (CosmosException e) {
+            log.error("Error saving into cosmos: ", e);
             handleCosmosException(e);
         }
     }
